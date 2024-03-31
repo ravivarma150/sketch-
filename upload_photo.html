@@ -1,0 +1,75 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <title>Upload Image</title>
+    <style>
+        body {
+            background-color: #008080; /* change this to your desired background color */
+            color: white;
+            font-family: Arial, sans-serif;
+        }
+        .container {
+            width: 50%;
+            margin: auto;
+            text-align: center;
+        }
+        .upload-form {
+            margin-top: 50px;
+        }
+        .upload-form input[type=file] {
+            display: none;
+        }
+        .upload-form label {
+            cursor: pointer;
+            background-color: #ffa500; /* change this to your desired background color */
+            padding: 10px 20px;
+            border-radius: 5px;
+        }
+        .upload-form label:hover {
+            background-color: #ff8c00; /* change this to your desired hover color */
+        }
+        .upload-form button {
+            margin-top: 20px;
+            background-color: #ffa500; /* change this to your desired background color */
+            padding: 10px 20px;
+            border: none;
+            border-radius: 5px;
+            cursor: pointer;
+        }
+        .upload-form button:hover {
+            background-color: #ff8c00; /* change this to your desired hover color */
+        }
+        .image-container {
+            margin-top: 50px;
+        }
+        .image-container img {
+            max-width: 100%;
+        }
+    </style>
+</head>
+<body>
+    <div class="container">
+        <h1>Convert Real Image to Sketch Image</h1>
+        <div class="upload-form">
+            <form action="{% url 'upload_image' %}" method="post" enctype="multipart/form-data">
+                {% csrf_token %}
+                <label for="image">Upload Image</label>
+                <input type="file" name="image" id="image" accept="image/*">
+                <button type="submit">Upload</button>
+            </form>
+        </div>
+        {% if original_image_url %}
+        <div class="image-container">
+            <h3>Original Image:</h3>
+            <img src="{{ original_image_url }}" alt="Original Image">
+        </div>
+        {% endif %}
+        {% if sketch_image_url %}
+        <div class="image-container">
+            <h3>Sketch Image:</h3>
+            <img src="{{ sketch_image_url }}" alt="Sketch Image">
+        </div>
+        {% endif %}
+    </div>
+</body>
+</html>
